@@ -13,7 +13,7 @@ import Ion from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
 const LoginForm = ({ navigation }) => {
   const { username, setUsername, password, setPassword, setSoneURL, setMemberID, setEventCompany } = useContext(UserContext);
-
+  const [loading, setLoading] = useState(false)
   const [value, setBoolean] = useBooleanAsyncStorage('@checkLogin')
 
 
@@ -31,6 +31,7 @@ const LoginForm = ({ navigation }) => {
   };
 
   const handleClick = async () => {
+    setLoading(true)
     const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/login.php?validationToken=123', { username: username, password: password })
     if (res) {
       setSoneURL(res.soneURL)
@@ -44,7 +45,7 @@ const LoginForm = ({ navigation }) => {
         alert('login error')
       }
     }
-
+    setLoading(false)
 
   }
 
@@ -115,11 +116,12 @@ const LoginForm = ({ navigation }) => {
       <Button
         onPress={handleClick}
         text={'Login'}
-        // Icon={<FontAws name="long-arrow-right" style={styles.iconLogin} />}
+        spinner={loading}
       />
       {/* Display Lougout Button only after checkbox: checked */}
       {value && (
         <Button
+          
           onPress={handleLogout}
           text={'Logout'}
           containerStyle={styles.logout}

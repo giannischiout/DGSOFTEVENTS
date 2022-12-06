@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { COLORS } from '../styleGeneral/colors';
 
 export const Button = (props) => {
@@ -7,9 +7,14 @@ export const Button = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} style={[styles.defaultBtn, props.containerStyle ? props.containerStyle : styles.buttonContainer]}>
       {props.Icon}
-      <Text style={props.textStyle ? props.textStyle : styles.buttonText}>
+      {!props.spinner ? (
+        <Text style={props.textStyle ? props.textStyle : styles.buttonText}>
         {props.text}
       </Text>
+      ) : (
+        <ActivityIndicator size={'small'} color={'white'} />
+      )}
+      
     </TouchableOpacity >
   )
 }
