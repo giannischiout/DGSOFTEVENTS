@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { FlatlistEvents } from "../Flatlist";
 import { UserContext } from "../../context/context";
 import { fetchAPI } from "../../utils/fetchAPI";
 import { RegisterListItem } from "../../Molecules/RegisteredListItem";
 import { COLORS } from "../../styleGeneral/colors";
 import Ionic from 'react-native-vector-icons/Ionicons';
-
+import Text from "../../Atoms/Text/TextPara";
 export const RegisteredEvents = ({ navigation }) => {
   const { soneURL, cccEventCompany, memberID } = useContext(UserContext);
   console.log(soneURL)

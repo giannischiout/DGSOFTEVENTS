@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   checkicon: {
     fontSize: 17,
+    color: 'black'
   },
 
 })

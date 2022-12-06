@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ViewRow } from "../Atoms/ViewRow";
 import { CheckBoxInput } from "../Atoms/CheckBoxInput";
-import CustomText from '../Atoms/Text/TextElement';
+import Text from '../Atoms/Text/TextPara'
 const CheckBoxLogin = (props) => {
 
   return (

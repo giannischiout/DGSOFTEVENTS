@@ -1,8 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { CheckBoxInput } from "../Atoms/CheckBoxInput";
 import WhiteView  from '../Atoms/WhiteView';
-
+import Text from '../Atoms/Text/TextPara';
 
 const CheckBoxView = (props) => {
   return (

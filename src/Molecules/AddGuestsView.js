@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import WhiteView from '../Atoms/WhiteView';
 import { COLORS } from '../styleGeneral/colors';
 import TouchIcon from '../Atoms/TouchableIcon';
+import Text from '../Atoms/Text/TextPara';
+
 const AddGuests = (props) => {
     return (
         <>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, } from "react-native";
+import { View, TouchableOpacity, StyleSheet, } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
+import Text from "../Atoms/Text/TextPara";
 
 export const FeaturedListItem = React.memo(({ item, index, setRaw, setCheck }) => {
 

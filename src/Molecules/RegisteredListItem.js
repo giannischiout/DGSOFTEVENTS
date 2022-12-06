@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, Linking, ActivityIndicator, TouchableOpacity, StyleSheet, TextInput, Button } from "react-native";
+import { View, Linking, ActivityIndicator, TouchableOpacity, StyleSheet, TextInput, Button } from "react-native";
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Feather from 'react-native-vector-icons/Feather';
 import Ion from 'react-native-vector-icons/Ionicons';
 
-import Input from "../Atoms/Input";
 import Foundation from 'react-native-vector-icons/Foundation';
 import { fetchAPI } from "../utils/fetchAPI";
 import { UserContext } from "../context/context";
-
+import  Text from "../Atoms/Text/TextPara";
 
 
 export const RegisterListItem = React.memo(({ item, index }) => {

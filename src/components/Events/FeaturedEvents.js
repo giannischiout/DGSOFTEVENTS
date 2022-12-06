@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, StyleSheet, TouchableOpacity} from "react-native";
 import { FlatlistEvents } from "../Flatlist";
 import { fetchAPI } from "../../utils/fetchAPI";
 import { FeaturedListItem } from "../../Molecules/FeaturedListItem";
@@ -12,6 +12,7 @@ import { Button } from "../../Atoms/Button";
 import AddGuests from "../../Molecules/AddGuestsView";
 import ViewAdd from "../../Molecules/ViewIcon";
 import CheckBoxView from "../../Molecules/CheckBoxView";
+import Text from "../../Atoms/Text/TextPara";
 export const UpcomingEvents = ({ navigation }) => {
 
   const { username, soneURL, memberID, cccEventCompany } = useContext(UserContext);
