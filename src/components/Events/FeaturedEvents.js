@@ -95,11 +95,11 @@ export const UpcomingEvents = ({ navigation }) => {
             <Text>Nothing to show</Text>
           </View>
         )}
-        {check.expand && <FlatlistEvents data={data} scroll={true} RenderItem={FeaturedListItem} ItemSeparatorComponent={ItemSeparatorView} setRaw={setRaw} setCheck={setCheck} />}
+        {check.expand && <FlatlistEvents style={styles.flatlist} data={data} scroll={true} RenderItem={FeaturedListItem} ItemSeparatorComponent={ItemSeparatorView} setRaw={setRaw} setCheck={setCheck} />}
       </View>
 
       {/* PARTICIPATE BOX */}
-      {raw.eventDate && <CheckBoxView onPress={clickParticipateCheckBox} state={check.checkBox} text={'Check box to participate'} />}
+      {raw.eventDate && <CheckBoxView onPress={clickParticipateCheckBox} state={check.checkBox} text={'Check to participate'} />}
 
       {/* CHOOSE NUMBER OF GUESTS: */}
       {check.checkBox && <GuestView setRaw={setRaw} raw={raw} setCheck={setCheck} check={check} />}
@@ -263,8 +263,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderTopWidth: 0.2,
     borderColor: COLORS.lightGrey
+  },
+  flatlist: {
+    maxHeight: 250,
+    
   }
-
 
 });
 

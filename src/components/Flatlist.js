@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text } from 'react-native';
 
 
-export const FlatlistEvents = ({ data, scroll, RenderItem, ItemSeparatorComponent, setRaw, setCheck }) => {
+export const FlatlistEvents = ({ data, scroll, RenderItem, ItemSeparatorComponent, setRaw, setCheck, style }) => {
 
   const renderItem = ({ item, index, }) => (
     <RenderItem item={item} index={index} setRaw={setRaw} setCheck={setCheck} />
@@ -20,15 +20,17 @@ export const FlatlistEvents = ({ data, scroll, RenderItem, ItemSeparatorComponen
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         scrollEnabled={scroll}
-        ItemSeparatorComponent={ItemSeparatorComponent} />
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        style={style} />
     </>
 
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     marginTop: 10,
-//   }
-// })
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 10,
+  },
+ 
+})

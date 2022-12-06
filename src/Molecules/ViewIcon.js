@@ -1,10 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet} from 'react-native';
-import WhiteView  from '../Atoms/WhiteView';
+import { StyleSheet} from 'react-native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../styleGeneral/colors';
 import View from '../Atoms/WhiteViewTouch';
-
+import Text from '../Atoms/Text/TextPara';
 
 const ViewIcon = (props) => {
   return (
