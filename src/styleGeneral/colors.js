@@ -7,5 +7,5 @@ export const COLORS = {
   confirm: "#f1140e",
   success: '#4BB543',
   loginInputColor: '#f8f8f8',
-  bodyTextColor: 'black'
+  bodyTextColor: '#414041'
 }

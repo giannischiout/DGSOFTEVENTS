@@ -4,25 +4,31 @@ import Input from "../Atoms/Input";
 import { Button } from "../Atoms/Button";
 import { UserContext } from "../context/context";
 import { fetchAPI } from "../utils/fetchAPI";
-import MaterialCom from 'react-native-vector-icons/MaterialCommunityIcons'
 import { COLORS } from "../styleGeneral/colors";
-
-// import useBooleanAsyncStorage from "../utils/asyncStorage";
+import * as Keychain from 'react-native-keychain';
+import useBooleanAsyncStorage from "../utils/asyncStorage";
 import CheckBox from "../Molecules/CheckBoxLogin";
-
+import { ViewRow } from "../Atoms/ViewRow";
+import Ion from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
 const LoginForm = ({ navigation }) => {
   const { username, setUsername, password, setPassword, setSoneURL, setMemberID, setEventCompany } = useContext(UserContext);
-  const [check, setCheck] = useState(false)
 
-  const [activateSecureStore, setActivateSecureStore] = useState(null)
-  // const { secureLoginCred, deleteStorage } = useSecureStore(activateSecureStore);
-  // const [value, setBoolean] = useBooleanAsyncStorage('@checkLogin')
+  const [value, setBoolean] = useBooleanAsyncStorage('@checkLogin')
 
 
   const handleUsername = text => setUsername(text);
   const handlePassword = text => setPassword(text);
 
-
+  const storeCred = async () => {
+      if(password && username && value) {
+        console.log('username ' + username)
+        console.log('password ' + password)
+        await Keychain.setGenericPassword(username, password);
+      }
+      
+    
+  };
 
   const handleClick = async () => {
     const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/login.php?validationToken=123', { username: username, password: password })
@@ -32,9 +38,8 @@ const LoginForm = ({ navigation }) => {
       setEventCompany(res.cccEventCompany)
       if (res.result == "OK") {
         navigation.navigate('Main')
-        if (check) {
-          // secureLoginCred();
-        }
+        storeCred();
+        
       } else {
         alert('login error')
       }
@@ -44,44 +49,76 @@ const LoginForm = ({ navigation }) => {
   }
 
   const handleLogout = async () => {
-    // deleteStorage();
-    // setBoolean(false)
-
+    const logout = await Keychain.resetGenericPassword();
+    if (logout && value) {
+      // resaveCheckBox();
+      setUsername('');
+      setPassword('')
+      setBoolean(false)
+      // setLoading(prev => !prev);
+    }
   }
 
   useEffect(() => {
-    //Will trigger the useSecure store from "../api/secureStore" : and store the Login Credential
-    setActivateSecureStore(true);
-  }, [])
+    (async () => {
+      try {
+        console.log('useEffect')
+        const credentials = await Keychain.getGenericPassword();
+        console.log(credentials)
+        if (credentials) {
+          setPassword(credentials.password);
+          setUsername(credentials.username);
+        } else {
+          console.log('No credentials stored');
+        }
+      } catch (error) {
+        // console.log("Keychain couldn't be accessed!", error);
+      }
+    })();
+  }, []);
 
   const handleCheckBox = () => {
-    // setBoolean(true)
-    setCheck(true);
+    // setCheck(true);
+    setBoolean(true)
   }
+
+
   return (
     <View style={styles.view}>
-      <Input
-        value={username}
-        defaultValue={username}
-        placeholder={'Username'}
-        handleText={handleUsername}
-        style={styles.genericInput}
-        secureTextEntry={false} />
-      <Input
+      <ViewRow style={styles.inputContainer}>
+        <View style={styles.iconView}>
+          <Ion style={styles.icon} name={'person-sharp'}/>
+        </View>
+        <Input
+          value={username}
+          style={styles.genericInput}
+          defaultValue={username}
+          placeholder={'Username'}
+          handleText={handleUsername}
+          secureTextEntry={false} />
+      </ViewRow>
+      <ViewRow style={styles.inputContainer}>
+        <View style={styles.iconView}>
+          <Entypo style={styles.icon} name={'lock'}/>
+        </View>
+        <Input
         value={password}
+        style={styles.genericInput}
         placeholder={'Password'}
         handleText={handlePassword}
-        style={styles.genericInput}
         secureTextEntry={true} />
-      {username && password && <CheckBox text={'Save Credentials'} state={check} onPress={handleCheckBox} />}
+      </ViewRow>
+     
+      
+      {username && password && <CheckBox text={'Save Credentials'} state={value} onPress={handleCheckBox} />}
 
       <Button
         onPress={handleClick}
         text={'Login'}
-        Icon={<MaterialCom name="login-variant" style={styles.icon} />}
+        // Icon={<FontAws name="long-arrow-right" style={styles.iconLogin} />}
       />
       {/* Display Lougout Button only after checkbox: checked */}
-      {check && (
+      {value && (
         <Button
           onPress={handleLogout}
           text={'Logout'}
@@ -100,6 +137,10 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   genericInput: {
+    color: 'black',
+    width: '100%'
+  },
+  inputContainer: {
     width: '100%',
     height: 60,
     backgroundColor: COLORS.loginInputColor,
@@ -109,22 +150,40 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     color: 'black'
   },
-  icon: {
+  iconLogin: {
     color: 'white',
-    fontSize: 19,
-    marginRight: 3,
+    fontSize: 17,
+    marginRight: 8,
     marginTop: 2,
   },
   //styles the logout Button:
   logout: {
-    height: 60,
+    height: 30,
     marginTop: 10,
-    backgroundColor: '#e6e7e8'
+    backgroundColor: 'transparent',
   },
   logoutText: {
     color: '#a1a4aa',
     fontSize: 17,
+  }, 
+  personIcon: {
+    color: 'black'
+    
+  },
+  icon: {
+    // marginRight: 5,
+    color: '#b2b0b1',
+  }, 
+  iconView: {
+    width: 30,
+    height: 30,
+    borderRadius: 40,
+    backgroundColor: '#ebebeb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 15,
   }
+
 })
 
 

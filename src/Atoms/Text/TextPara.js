@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   text: {
     color: COLORS.bodyTextColor,
     fontSize: 17,
-    fontFamily : FONTS.NotoBlack,
+    fontFamily : 'Jura-Black',
   }
 })
 

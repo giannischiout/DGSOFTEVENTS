@@ -8,11 +8,9 @@ export const CheckBoxInput = (props) => {
     <TouchableOpacity
       onPress={props.onPress}
       style={[
-        styles.checkbox,
-        styles.dimensions,
-        styles.color,
+        props.style ? props.style : styles.checkbox
       ]}>
-      {props.state && <AntDesign style={[styles.checkicon]} name="check" />}
+      {props.state && <AntDesign style={[props.styleIcon ? props.styleIcon : styles.checkicon,  ]} name="check" />}
     </TouchableOpacity>
   )
 }
@@ -26,12 +24,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginRight: 10,
     marginLeft: 5,
-  },
-  dimensions: {
     width: 25,
     height: 25,
-  },
-  color: {
     borderColor: COLORS.orange,
   },
   checkicon: {
