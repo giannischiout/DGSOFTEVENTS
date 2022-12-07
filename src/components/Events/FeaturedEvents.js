@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { View, StyleSheet, TouchableOpacity} from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { FlatlistEvents } from "../Flatlist";
 import { fetchAPI } from "../../utils/fetchAPI";
 import { FeaturedListItem } from "../../Molecules/FeaturedListItem";
@@ -16,11 +16,9 @@ import Text from "../../Atoms/Text/TextPara";
 export const UpcomingEvents = ({ navigation }) => {
 
   const { username, soneURL, memberID, cccEventCompany } = useContext(UserContext);
-  const [expand, setExpand] = useState(false)
   const [data, setData] = useState(null)
   const [check, setCheck] = useState({
     checkBox: false,
-    guestsBtn: false,
     submitBtn: false,
     expand: false,
   })
@@ -49,11 +47,17 @@ export const UpcomingEvents = ({ navigation }) => {
 
   //Insert/Register a new Event:
   const handlePost = async () => {
+    setCheck((prev) => { return { ...prev, submitBtn: true } });
     if (check.checkBox) {
-      const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/postNewRegistrations.php', raw)
-      console.log('================================== res')
-      console.log(res)
-      navigation.navigate('Main')
+      try {
+        const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/postNewRegistrations.php', raw)
+        navigation.navigate('Main')
+      } catch (e) {
+        alert('please try again')
+      }
+
+
+
     }
   }
 
@@ -104,6 +108,7 @@ export const UpcomingEvents = ({ navigation }) => {
       {/* CHOOSE NUMBER OF GUESTS: */}
       {check.checkBox && <GuestView setRaw={setRaw} raw={raw} setCheck={setCheck} check={check} />}
 
+
       {/* CALCULATE TOTAL COST: */}
       {check.checkBox && (
         <View style={[styles.flexRow, styles.itemContainer]}>
@@ -115,7 +120,8 @@ export const UpcomingEvents = ({ navigation }) => {
 
 
       {/* SUBMIT BUTTON: */}
-      {check.checkBox && <Button onPress={handlePost} containerStyle={styles.submitEvent} text={'Submit'} />}
+      {check.checkBox && <Button onPress={handlePost} containerStyle={styles.submitEvent} text={'Submit'} disabled={check.submitBtn} />}
+      {/* {check.checkBox && <Button style={styles.defaultBtn} onPress={handlePost} title={'submit'} disabled={check.submitBtn} />} */}
 
 
     </View>
@@ -266,8 +272,17 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     maxHeight: 250,
-    
-  }
+
+  },
+  defaultBtn: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 3,
+    backgroundColor: COLORS.orangeBright,
+    height: 60,
+  },
 
 });
 

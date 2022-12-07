@@ -5,16 +5,21 @@ import { COLORS } from '../styleGeneral/colors';
 export const Button = (props) => {
 
   return (
-    <TouchableOpacity onPress={props.onPress} style={[styles.defaultBtn, props.containerStyle ? props.containerStyle : styles.buttonContainer]}>
+    <TouchableOpacity
+      disabled={props.disabled}
+      onPress={props.onPress}
+      activeOpacity={props.disabled && 1}
+      style={[styles.defaultBtn, props.disabled && styles.disabled, props.containerStyle ? props.containerStyle : styles.buttonContainer]}>
+
       {props.Icon}
       {!props.spinner ? (
         <Text style={props.textStyle ? props.textStyle : styles.buttonText}>
-        {props.text}
-      </Text>
+          {props.text}
+        </Text>
       ) : (
         <ActivityIndicator size={'small'} color={'white'} />
       )}
-      
+
     </TouchableOpacity >
   )
 }
@@ -32,12 +37,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height: 60,
-    
   },
   buttonText: {
     color: 'white',
     fontSize: 20,
   },
+  disabled: {
+    backgroundColor: '#d1ceca'
+  }
 
 })
 
