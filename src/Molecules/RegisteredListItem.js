@@ -29,7 +29,6 @@ export const RegisterListItem = React.memo(({ item, index }) => {
     guests: guests,
     cost: cost,
     url: soneURL,
-    // cccMembers: memberID,
     cccMembers: memberID,
     cccParousies: item.cccParousies,
   }
@@ -47,10 +46,10 @@ export const RegisterListItem = React.memo(({ item, index }) => {
     <View style={styles.container} key={index}>
       {/* HEADER WITH EVENT TIME AND EDIT BUTTON */}
       <View style={[styles.topContainer, expand && styles.openContainer]}>
-        <TouchableOpacity style={styles.flexRow}>
+        <View style={styles.flexRow}>
           <AntDesign style={[styles.icon, expand && styles.textWhite]} name='clockcircleo' />
           <Text style={expand && styles.textWhite} >{item.eventDATE}</Text>
-        </TouchableOpacity>
+        </View>
         <View style={styles.eventTime} >
           <TouchableOpacity
             style={styles.flexRow}

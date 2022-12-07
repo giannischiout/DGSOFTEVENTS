@@ -22,10 +22,15 @@ const LogoIntro = (props) => {
   return (
     <>
       {!hide &&
-        <View style={[styles.view, props.containerStyle]}>
-          <Text style={[styles.textLeft, props.textStyle]}>DGSOFT</Text>
-          <Text style={[styles.textRight, props.textStyle]}>EVENTS</Text>
-        </View>
+        <>
+          <View style={[styles.view, props.containerStyle]}>
+            <Text style={[styles.textLeft, props.textStyle]}>BNI</Text>
+            <Text style={[styles.textRight, props.textStyle]}>EVENTS</Text>
+          </View>
+          <View>
+            <Text style={styles.tagline}>SW 2022-23</Text>
+          </View>
+        </>
       }
 
 
@@ -45,8 +50,13 @@ const styles = StyleSheet.create({
   },
   textLeft: {
     color: '#40423f',
-    marginRight: 3,
+    marginRight: 6,
+  },
+  tagline: {
+    color: '#40423f',
+    fontSize: 14,
   }
+
 
 })
 
