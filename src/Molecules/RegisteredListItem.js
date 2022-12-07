@@ -6,7 +6,7 @@ import Ion from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import { fetchAPI } from "../utils/fetchAPI";
 import { UserContext } from "../context/context";
-import  Text from "../Atoms/Text/TextPara";
+import Text from "../Atoms/Text/TextPara";
 
 
 export const RegisterListItem = React.memo(({ item, index }) => {
@@ -47,7 +47,7 @@ export const RegisterListItem = React.memo(({ item, index }) => {
     <View style={styles.container} key={index}>
       {/* HEADER WITH EVENT TIME AND EDIT BUTTON */}
       <View style={[styles.topContainer, expand && styles.openContainer]}>
-        <TouchableOpacity style={styles.flexRow} onPress={() => coordinates()}>
+        <TouchableOpacity style={styles.flexRow}>
           <AntDesign style={[styles.icon, expand && styles.textWhite]} name='clockcircleo' />
           <Text style={expand && styles.textWhite} >{item.eventDATE}</Text>
         </TouchableOpacity>
