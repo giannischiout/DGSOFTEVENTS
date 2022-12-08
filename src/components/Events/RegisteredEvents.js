@@ -24,7 +24,9 @@ export const RegisteredEvents = ({ navigation }) => {
     const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/fetchEvents.php', { url: soneURL, cccEventCompany: cccEventCompany, cccmembers: memberID })
 
     if (res) {
-
+      console.log('=================== FETCH REGISTER EVENTS ====================')
+      // console.log(res.result[0].cccExpirationDate)
+      console.log(res.result)
       setData(res.result)
     }
 
@@ -50,6 +52,7 @@ export const RegisteredEvents = ({ navigation }) => {
             <Text> No Registered Events</Text>
           </View>
         )}
+
         <FlatlistEvents data={data} scroll={true} RenderItem={RegisterListItem} ItemSeparatorComponent={ItemSeparatorView} />
       </View>
 

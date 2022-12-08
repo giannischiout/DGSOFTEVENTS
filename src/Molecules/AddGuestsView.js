@@ -9,7 +9,7 @@ const AddGuests = (props) => {
     return (
         <>
             <WhiteView spaceBetween={false} style={props.style}>
-                <Text style={styles.textHeader}>Add More Guests</Text>
+                <Text style={styles.textHeader}>{props.text ? props.text : "Add More Guests"}</Text>
                 <TouchIcon name="minussquare" onPress={props.decrease} />
                 <View style={styles.countText}>
                     <Text>{props.guests}</Text>

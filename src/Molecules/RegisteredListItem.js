@@ -7,7 +7,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import { fetchAPI } from "../utils/fetchAPI";
 import { UserContext } from "../context/context";
 import Text from "../Atoms/Text/TextPara";
-
+import { getDateTime } from "../utils/dateNow";
 
 export const RegisterListItem = React.memo(({ item, index }) => {
   const [guests, setGuests] = useState(parseInt(item.guests))
@@ -16,6 +16,10 @@ export const RegisterListItem = React.memo(({ item, index }) => {
   const { username, soneURL, memberID, cccEventCompany } = useContext(UserContext);
   const [expand, setExpand] = useState(false);
 
+
+
+  const currentDate = Date.parse(getDateTime())
+  const expiration = Date.parse(item.cccExpirationDate)
 
 
   let coordinates = () => {
@@ -37,7 +41,6 @@ export const RegisterListItem = React.memo(({ item, index }) => {
   const handlePost = async () => {
     console.log('handlePost')
     const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/updateRegistrations.php', raw)
-
   }
 
 
@@ -51,6 +54,7 @@ export const RegisterListItem = React.memo(({ item, index }) => {
           <Text style={expand && styles.textWhite} >{item.eventDATE}</Text>
         </View>
         <View style={styles.eventTime} >
+
           <TouchableOpacity
             style={styles.flexRow}
             onPress={() => setExpand((prev) => !prev)} >
@@ -94,6 +98,8 @@ export const RegisterListItem = React.memo(({ item, index }) => {
             save={save}
             handlePost={handlePost}
             setExpand={setExpand}
+            currentDate={currentDate}
+            expiration={expiration}
           />
         </View>
       )}
@@ -130,21 +136,34 @@ const GuestView = ({ guests, setGuests, setCost, confirm }) => {
   )
 }
 
-const ButtonView = ({ setExpand, handlePost }) => {
+const ButtonView = ({ setExpand, handlePost, currentDate, expiration }) => {
   //BUTTONS:
   const handleSave = () => {
-    setExpand(false);
-    handlePost();
+    if (currentDate > expiration) {
+      alert('Registration period is closed. \n You cannot edit this event')
+    }
+    if (currentDate < expiration) {
+      setExpand(false);
+      handlePost();
+    }
+
   }
 
+
   return (
-    <View style={styles.buttonView}>
-      <TouchableOpacity
-        style={[styles.button, styles.confirmButton]}
-        onPress={handleSave}>
-        <Text style={styles.textWhite}>Save</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+
+      <View style={styles.buttonView}>
+        <TouchableOpacity
+          style={[styles.button, styles.confirmButton]}
+          onPress={handleSave}>
+          <Text style={styles.textWhite}>Save</Text>
+        </TouchableOpacity>
+      </View>
+
+
+    </>
+
   )
 }
 
