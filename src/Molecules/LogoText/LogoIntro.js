@@ -25,7 +25,7 @@ const LogoIntro = (props) => {
         <>
           <View style={[styles.view, props.containerStyle]}>
             <Text style={[styles.textLeft, props.textStyle]}>BNI</Text>
-            <Text style={[styles.textRight, props.textStyle]}>EVENTS</Text>
+            <Text style={[styles.textRight, props.textStyle]}>Events</Text>
           </View>
           <View>
             <Text style={styles.tagline}>SW 2022-23</Text>
