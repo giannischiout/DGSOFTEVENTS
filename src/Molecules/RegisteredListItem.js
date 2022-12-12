@@ -85,6 +85,7 @@ export const RegisterListItem = React.memo(({ item, index }) => {
             guests={guests}
             setGuests={setGuests}
             setCost={setCost}
+            guestCost={item.guestCost}
           />
 
           <View style={styles.priceView}>
@@ -108,15 +109,15 @@ export const RegisterListItem = React.memo(({ item, index }) => {
   )
 })
 
-const GuestView = ({ guests, setGuests, setCost, confirm }) => {
+const GuestView = ({ guests, setGuests, setCost, confirm, guestCost }) => {
   const increaseGeuests = () => {
     setGuests((prev) => prev + 1)
-    setCost((prev) => prev + 20)
+    setCost((prev) => prev + parseInt(guestCost))
   }
   const decreaseGeuests = () => {
     if (guests !== 0) {
       setGuests((prev) => prev - 1)
-      setCost((prev) => prev - 20)
+      setCost((prev) => prev - parseInt(guestCost))
     }
 
   }

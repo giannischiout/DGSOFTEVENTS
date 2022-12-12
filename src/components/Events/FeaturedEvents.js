@@ -29,6 +29,7 @@ export const UpcomingEvents = ({ navigation }) => {
     cccEventCompany: cccEventCompany,
     guests: 0,
     cost: 0,
+    guestCost: 0,
     cccBNIevents: '',
     eventDate: '',
 
@@ -40,6 +41,7 @@ export const UpcomingEvents = ({ navigation }) => {
     const res = await fetchAPI('https://ccmde1.cloudon.gr/BNI/featuredEvents.php', { userName: username, url: soneURL, cccEventCompany: cccEventCompany, cccmembers: memberID })
     console.log('fetch current evetns')
     console.log(res.result)
+
     if (res) {
       setData(res.result)
     }
@@ -76,7 +78,7 @@ export const UpcomingEvents = ({ navigation }) => {
       setRaw(prev => {
         return {
           ...prev,
-          cost: (prev.cost + 50)
+          cost: (parseInt(data[0].eventCost))
         }
       })
       setCheck((prev) => { return { ...prev, checkBox: true } });
@@ -106,7 +108,7 @@ export const UpcomingEvents = ({ navigation }) => {
       {raw.eventDate && <CheckBoxView onPress={clickParticipateCheckBox} state={check.checkBox} text={'Check to participate'} />}
 
       {/* CHOOSE NUMBER OF GUESTS: */}
-      {check.checkBox && <GuestView setRaw={setRaw} raw={raw} setCheck={setCheck} check={check} />}
+      {check.checkBox && <GuestView setRaw={setRaw} raw={raw} setCheck={setCheck} check={check} data={data} />}
 
 
       {/* CALCULATE TOTAL COST: */}
@@ -129,9 +131,8 @@ export const UpcomingEvents = ({ navigation }) => {
 }
 
 
-const GuestView = ({ setRaw, raw, setCheck, check }) => {
+const GuestView = ({ setRaw, raw, setCheck, check, data }) => {
   const increaseGeuests = () => {
-
     setRaw(prev => {
       return {
         ...prev,
@@ -141,7 +142,7 @@ const GuestView = ({ setRaw, raw, setCheck, check }) => {
     setRaw(prev => {
       return {
         ...prev,
-        cost: (prev.cost + 20)
+        cost: (prev.cost + parseInt(data[0].guestCost))
       }
     })
   }
@@ -158,7 +159,7 @@ const GuestView = ({ setRaw, raw, setCheck, check }) => {
       setRaw(prev => {
         return {
           ...prev,
-          cost: (prev.cost - 20)
+          cost: (prev.cost - parseInt(data[0].guestCost))
         }
       })
     }
